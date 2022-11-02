@@ -9,9 +9,12 @@ import Map from './components/Map/Map';
 
 const App = () => {
     const [places,setPlaces] = useState([]);
+    const [childClicked,setChildClicked] = useState(null);
     
     const [coordinates,setCoordinates] = useState({});
     const [bounds,setBounds] = useState({});
+
+    const [isLoading, setisLoading] = useState(false);
 
     useEffect(()=>{ 
         navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}})=>{ //get users locatiton 
@@ -20,14 +23,14 @@ const App = () => {
     },[])
 
     useEffect(() =>{
-        console.log(coordinates, bounds);
+        setisLoading(true); 
+
         getPlacesData(bounds.sw, bounds.ne)
-        .then((data)=>{
-            console.log(data);
-            
-            setPlaces(data);
+            .then((data)=>{   
+                setPlaces(data);
+                setisLoading(false); //once data has been retrieved 
         })
-    },[coordinates,bounds]); //code will rerun everytime coords and bounds change to find new data 
+    },[coordinates,bounds]); //useEffect will rerun everytime coords and bounds change to find new data 
 
     return(
         <div>
@@ -37,14 +40,20 @@ const App = () => {
             <Grid container spacing={3} style={{width: '100%'}}>
                 {/* only list will show on mobile devices // max spaces is 12*/}
                 <Grid item xs={12} md={4}>  
-                    <List  places={places}/>
+                    <List  
+                        places={places}
+                        childClicked={childClicked}
+                        isLoading={isLoading}
+                    />
+
                 </Grid>  
                 <Grid item xs={12} md={8}>
                     <Map
-                    setCoordinates={setCoordinates}
-                    setBounds={setBounds}
-                    coordinates={coordinates}
-                    places={places}
+                        setCoordinates={setCoordinates}
+                        setBounds={setBounds}
+                        coordinates={coordinates}
+                        places={places}
+                        setChildClicked={setChildClicked}
                     />
                 </Grid>  
             </Grid>
