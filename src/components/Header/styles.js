@@ -8,7 +8,10 @@ export default makeStyles(() => ({
     },
     toolbar: {
         backgroundColor: '#fd5c63',
-        color: '#fffdd0'
+        color: '#fffdd0',
+        display: 'flex',
+        justifyContent: 'left',
+       
     },
 
 }));
