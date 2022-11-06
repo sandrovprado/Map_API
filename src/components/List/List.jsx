@@ -5,9 +5,8 @@ import PlaceDetails from "../PlaceDetails/PlaceDetails";
 import useStyles from './styles';
 
 
-const List = ({places,childClicked,isLoading}) => {
+const List = ({places,childClicked,isLoading,rating,setRating}) => {
     const classes = useStyles();
-    const [rating, setRating] = useState('');
     const [RefElement,setRefElement] = useState([]);
 
     
