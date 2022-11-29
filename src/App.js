@@ -48,16 +48,6 @@ const App = () => {
             <Header />
             <Grid container spacing={3} style={{width: '100%'}}>
                 {/* only list will show on mobile devices // max spaces is 12*/}
-                <Grid item xs={12} md={8}>
-                    <Map
-                        setCoordinates={setCoordinates}
-                        setBounds={setBounds}
-                        coordinates={coordinates}
-                        places={ratingFilter.length ? ratingFilter : places} //if filtered places true, else render place
-                        setChildClicked={setChildClicked}
-                    />
-                </Grid>  
-
                 <Grid item xs={12} md={4}>  
                     <List  
                         places={ratingFilter.length ? ratingFilter : places} 
@@ -66,9 +56,16 @@ const App = () => {
                         raing={rating}
                         setRating={setRating}
                     />
-
                 </Grid>  
-               
+                <Grid item xs={12} md={8}>
+                    <Map
+                        setCoordinates={setCoordinates}
+                        setBounds={setBounds}
+                        coordinates={coordinates}
+                        places={ratingFilter.length ? ratingFilter : places} //if filtered places true, else render place
+                        setChildClicked={setChildClicked}
+                    />
+                </Grid>   
             </Grid>
             </>
         </div>
